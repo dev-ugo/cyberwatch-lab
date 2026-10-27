@@ -1,0 +1,28 @@
+name: cyberwatch-lab
+
+services:
+  web:
+    image: nginx:stable-alpine
+
+  client:
+    image: curlimages/curl:latest
+
+  observer:
+    image: nicolaka/netshoot:latest
+    network_mode: "service:web"
+    profiles: ["tools"]
+    volumes:
+      - ./captures:/captures
+
+  suricata:
+    image: jasonish/suricata:8.0
+    profiles: ["tools"]
+    network_mode: none
+    volumes:
+      - ./captures:/captures:ro
+      - ./rules:/rules:ro
+      - ./logs/suricata:/var/log/suricata
+
+networks:
+  default:
+    internal: true

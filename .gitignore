@@ -1,0 +1,7 @@
+# Generated analysis results
+logs/
+
+# Keep only the controlled lab captures
+captures/*
+!captures/http-baseline.pcap
+!captures/http-head.pcap
